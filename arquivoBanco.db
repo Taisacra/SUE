@@ -1,0 +1,376 @@
+create database suesistema
+use suesistema;
+
+CREATE TABLE IF NOT EXISTS `suesistema`.`usuario` (
+  `idUsuario` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome_usuario` VARCHAR(45) NOT NULL,
+  `cpf` INT(11) NOT NULL,
+  `telefone` INT(13) NOT NULL,
+  `data_nascimento` DATE NOT NULL,
+  `cep` INT(8) NOT NULL,
+  `rua` VARCHAR(45) NOT NULL,
+  `numero_casa` INT(11) NOT NULL,
+  `bairro` VARCHAR(45) NOT NULL,
+  `cidade` VARCHAR(45) NOT NULL,
+  `estado` VARCHAR(45) NOT NULL,
+  `complemento` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`idUsuario`));
+
+
+-- -----------------------------------------------------
+-- Table `sueprojeto`.`aluno`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `aluno` (
+  `id_aluno` INT(11) NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(45) NOT NULL,
+  `idUsuario` INT(11) NOT NULL,
+  PRIMARY KEY (`id_aluno`),
+    FOREIGN KEY (`idUsuario`)
+    REFERENCES `suesistema`.`usuario` (`idUsuario`));
+
+
+-- -----------------------------------------------------
+-- Table `sueprojeto`.`coordenador`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `suesistema`.`coordenador` (
+  `id_Coordenador` INT(11) NOT NULL AUTO_INCREMENT,
+  `idUsuario` INT(11) NOT NULL,
+  PRIMARY KEY (`id_Coordenador`),
+  FOREIGN KEY (`idUsuario`)
+  REFERENCES `suesistema`.`usuario` (`idUsuario`)
+);
+
+
+-- -----------------------------------------------------
+-- Table `sueprojeto`.`curso`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `suesistema`.`curso` (
+  `id_curso` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  `id_Coordenador` INT(11) NOT NULL,
+  PRIMARY KEY (`id_curso`));
+
+
+-- -----------------------------------------------------
+-- Table `sueprojeto`.`cursocoordenador`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `suesistema`.`cursocoordenador` (
+  `id_curso` INT(11) NOT NULL,
+  `nome` VARCHAR(45) NOT NULL,
+  `id_Coordenador` INT(11) NOT NULL,
+  `nome_usuario` VARCHAR(45) NOT NULL,
+  `idUsuario` INT(11) NOT NULL,
+  PRIMARY KEY (`id_curso`),
+    FOREIGN KEY (`id_curso`)
+    REFERENCES `suesistema`.`curso` (`id_curso`));
+
+
+-- -----------------------------------------------------
+-- Table `sueprojeto`.`disciplina`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `suesistema`.`disciplina` (
+  `id_disciplina` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome_disciplina` VARCHAR(50) NOT NULL,
+  `carga_horaria` INT(11) NOT NULL,
+  `descricao_disciplina` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id_disciplina`));
+
+
+-- -----------------------------------------------------
+-- Table `sueprojeto`.`disciplinacurso`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `suesistema`.`disciplinacurso` (
+  `id_disciplina_curso` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_disciplina` INT(11) NOT NULL,
+  `id_curso` INT(11) NOT NULL,
+  PRIMARY KEY (`id_disciplina_curso`),
+    FOREIGN KEY (`id_disciplina`)
+    REFERENCES `suesistema`.`disciplina` (`id_disciplina`),
+    FOREIGN KEY (`id_curso`)
+    REFERENCES `suesistema`.`curso` (`id_curso`));
+
+
+-- -----------------------------------------------------
+-- Table `sueprojeto`.`professor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `suesistema`.`professor` (
+  `id_professor` INT(11) NOT NULL AUTO_INCREMENT,
+  `titulo` VARCHAR(80) NOT NULL,
+  `idUsuario` INT(11) NOT NULL,
+  PRIMARY KEY (`id_professor`),
+    FOREIGN KEY (`idUsuario`)
+    REFERENCES `suesistema`.`usuario` (`idUsuario`));
+
+
+-- -----------------------------------------------------
+-- Table `sueprojeto`.`professordisciplina`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `suesistema`.`professordisciplina` (
+  `id_professorDisciplina` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_professor` INT(11) NOT NULL,
+  `id_disciplina` INT(11) NOT NULL,
+  PRIMARY KEY (`id_professorDisciplina`),
+    FOREIGN KEY (`id_professor`)
+    REFERENCES `suesistema`.`professor` (`id_professor`),
+  CONSTRAINT `professordisciplina_ibfk_2`
+    FOREIGN KEY (`id_disciplina`)
+    REFERENCES `suesistema`.`disciplina` (`id_disciplina`));
+
+
+-- -----------------------------------------------------
+-- Table `sueprojeto`.`responsavel_financeiro`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `suesistema`.`responsavel_financeiro` (
+  `id_responsavel_financeiro` INT(11) NOT NULL AUTO_INCREMENT,
+  `idUsuario` INT(11) NOT NULL,
+  PRIMARY KEY (`id_responsavel_financeiro`),
+    FOREIGN KEY (`idUsuario`)
+    REFERENCES `suesistema`.`usuario` (`idUsuario`));
+
+
+-- -----------------------------------------------------
+-- Table `sueprojeto`.`turma`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `suesistema`.`turma` (
+  `id_Turma` INT(11) NOT NULL AUTO_INCREMENT,
+  `turno` VARCHAR(45) NOT NULL,
+  `id_Curso` INT(11) NOT NULL,
+  PRIMARY KEY (`id_Turma`),
+    FOREIGN KEY (`id_Curso`)
+    REFERENCES `suesistema`.`curso` (`id_curso`));
+
+
+-- -----------------------------------------------------
+-- Table `sueprojeto`.`turmaaluno`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `suesistema`.`turmaaluno` (
+  `id_TurmaAluno` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_Turma` INT(11) NOT NULL,
+  `id_Aluno` INT(11) NOT NULL,
+  PRIMARY KEY (`id_TurmaAluno`));
+
+
+-- -----------------------------------------------------
+-- Table `sueprojeto`.`turmadisciplina`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `suesistema`.`turmadisciplina` (
+  `id_TurmaDisciplina` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_Turma` INT(11) NOT NULL,
+  `id_Disciplina` INT(11) NOT NULL,
+  PRIMARY KEY (`id_TurmaDisciplina`));
+  
+  -- -----------------------------------------------------
+-- Table `suesistema`.`usuarioaluno`
+-- -----------------------------------------------------
+  CREATE TABLE IF NOT EXISTS `usuarioaluno` (
+  `id_aluno` INT(11) NOT NULL,
+  `idUsuario` INT(11) NOT NULL,
+  `nome_usuario` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id_aluno`, `idUsuario`),
+  FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`),
+  FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`)
+);
+
+-- -----------------------------------------------------
+-- Table `suesistema`.`usuariocoordenador`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `usuariocoordenador` (
+  `id_Coordenador` INT(11) NOT NULL,
+  `idUsuario` INT(11) NOT NULL,
+  `nome_usuario` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id_Coordenador`, `idUsuario`),
+  FOREIGN KEY (`id_Coordenador`) REFERENCES `coordenador` (`id_Coordenador`),
+  FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`)
+);
+
+-- -----------------------------------------------------
+-- Table `suesistema`.`usuarioprofessor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `usuarioprofessor` (
+  `id_professor` INT(11) NOT NULL,
+  `idUsuario` INT(11) NOT NULL,
+  `nome_usuario` VARCHAR(45) NOT NULL,
+  `titulo` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id_professor`, `idUsuario`),
+  FOREIGN KEY (`id_professor`) REFERENCES `professor` (`id_professor`)
+  );
+  
+  
+  -- -----------------------------------------------------
+-- Table `suesistema`.`usuarioresponsavelfinanceiro`
+-- -----------------------------------------------------
+CREATE TABLE usuarioresponsavelfinanceiro (
+    id_responsavel_financeiro INT NOT NULL,
+    idUsuario INT NOT NULL,
+    nome_usuario VARCHAR(45) NOT NULL,
+    PRIMARY KEY (id_responsavel_financeiro, idUsuario),
+    FOREIGN KEY (id_responsavel_financeiro) REFERENCES responsavelfinanceiro(id_responsavelFinanceiro),
+    FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario)
+);
+
+
+-- -----------------------------------------------------
+-- Table `suesistema`.`turmacurso`
+-- -----------------------------------------------------
+CREATE TABLE turmacurso (
+    id_Turma INT NOT NULL,
+    turno VARCHAR(10) NOT NULL,
+    id_Curso INT NOT NULL,
+    nome VARCHAR(45) NOT NULL,
+    PRIMARY KEY (id_Turma, id_Curso),
+    FOREIGN KEY (id_Turma) REFERENCES turma(id_Turma),
+    FOREIGN KEY (id_Curso) REFERENCES curso(id_curso)
+);
+
+-- -----------------------------------------------------
+-- Table `suesistema`.`pagamento`
+-- -----------------------------------------------------
+CREATE TABLE pagamento (
+    id_pagamento INT NOT NULL AUTO_INCREMENT,
+    id_responsavel INT NOT NULL,
+    data_Vencimento DATE NOT NULL,
+    valor_Previsto DOUBLE NOT NULL,
+    id_Curso INT NOT NULL,
+    PRIMARY KEY (id_pagamento),
+    FOREIGN KEY (id_responsavel) REFERENCES responsavelfinanceiro(id_responsavelFinanceiro),
+    FOREIGN KEY (id_Curso) REFERENCES curso(id_curso)
+);
+
+
+VIWES
+
+
+create database suesistema
+use suesistema;
+
+  
+CREATE VIEW usuariocoordenadorView AS
+    SELECT 
+        u.nome_usuario AS nome_usuario,
+        u.idUsuario AS idUsuario,
+        c.id_Coordenador AS id_Coordenador
+    FROM
+        usuario AS u,
+        coordenador AS c
+    WHERE
+        u.idUsuario = c.idUsuario; 
+
+select * from usuarioCoordenadorView;
+
+CREATE VIEW usuarioResponsavelFinanceiroView AS
+    SELECT 
+        u.nome_usuario As nome_usuario,
+        u.idUsuario AS idUsuario,
+        rf.id_responsavel_financeiro As id_responsavel_financeiro
+    FROM
+        usuario AS u,
+        responsavel_financeiro AS rf
+    WHERE
+        u.idUsuario = rf.idUsuario;
+select * from usuarioResponsavelFinanceiroView; 
+
+
+CREATE VIEW usuarioAlunoView AS
+    SELECT 
+        u.nome_usuario AS nome_usuario,
+        u.idUsuario AS idUsuario,
+        a.id_aluno AS id_aluno,
+        a.email AS email
+    FROM
+        usuario AS u,
+        aluno AS a
+    WHERE
+        u.idUsuario = a.idUsuario;
+select * from usuarioAlunoView;
+
+
+CREATE VIEW usuarioProfessorView AS
+    SELECT 
+		u.nome_usuario As nome_usuario,
+        u.idUsuario AS idUsuario,
+        p.id_professor AS id_professor,
+        p.titulo AS titulo
+    FROM
+        usuario AS u,
+        professor AS p
+    WHERE
+        u.idUsuario = p.idUsuario;
+select * from usuarioProfessorView;
+
+
+CREATE VIEW disciplina_cursoView AS
+    SELECT 
+        dc.id_curso AS id_curso,
+        c.nome AS nome,
+        dc.id_disciplina AS id_disciplina,
+        d.nome_disciplina AS nome_disciplina
+    FROM
+        curso AS c,
+        disciplina AS d,
+        disciplinaCurso AS dc
+    WHERE
+        c.id_curso = dc.id_curso
+            AND d.id_disciplina = dc.id_disciplina;
+SELECT * FROM disciplina_cursoView;
+
+    
+CREATE VIEW coordenadorcursoView AS
+SELECT 
+    c.id_curso as id_curso,
+    c.nome as nome,
+    c.id_coordenador as id_coordenador,
+    uc.nome_usuario as nome_usuario,
+    uc.idUsuario as idUsuario
+FROM
+    curso AS c
+JOIN
+    usuariocoordenador AS uc ON c.id_coordenador = uc.id_coordenador;
+    SELECT * FROM  coordenadorcursoView;
+    
+CREATE VIEW turmacursoView AS
+    SELECT 
+        t.id_Turma AS id_Turma,
+        t.turno AS turno,
+        t.id_Curso AS id_Curso,
+        c.nome AS nome
+    FROM
+        turma AS t
+            JOIN
+        curso AS c ON t.id_Curso = c.id_curso;
+select * from turmacursoView;
+
+CREATE VIEW turma_alunoView as
+SELECT 
+	ta.id_TurmaAluno as id_TurmaAluno,
+	ta.id_aluno as id_aluno,
+	t.id_Turma as id_Turma,
+	ua.nome_usuario as nome_usuario,
+	ua.idUsuario as idUsuario
+FROM 
+	turmaaluno as ta,
+	usuarioaluno AS ua,
+	turma as t 
+where
+	ta.id_aluno = ua.id_aluno 
+    and ta.id_TurmaAluno = t.id_Turma;
+    SELECT * FROM turma_alunoView;
+
+
+create view turma_disciplinaView as 
+select 
+	td.id_Turma as id_Turma,
+	td.id_disciplina as id_disciplina,
+	d.nome_disciplina as nome_disciplina
+from 
+	disciplina as d,
+	turmaDisciplina as td,
+	turma as t
+where 
+	t.id_Turma = td.id_Turma 
+    and d.id_disciplina = td.id_disciplina;
+select * from turma_disciplinaView;
+
+
+
+
