@@ -38,7 +38,7 @@ Router.post("/usuario/criar", async (req,res)=>{
             complemento,
         } = req.body
 
-        await Atividade.create({
+        await Usuario.create({
             nome_usuario,
             cpf,
             telefone,

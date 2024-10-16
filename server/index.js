@@ -47,6 +47,7 @@ Pagamento.sincronizarPagamento;
 app.use("/", Aluno);
 app.use("/", Coordenador);
 app.use("/", Disciplina);
+app.use("/", Usuario);
 
 
 
