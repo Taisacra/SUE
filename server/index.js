@@ -45,6 +45,7 @@ UsuarioProfessor.sicronizarUsuarioProfessor;
 Pagamento.sincronizarPagamento;
 
 app.use("/", Aluno);
+app.use("/", Usuario);
 app.use("/", Coordenador);
 app.use("/", Disciplina);
 app.use("/", Usuario);
@@ -68,5 +69,6 @@ connection
         console.log("Conexão feita com o banco de dados!")
     })
     .catch((msgErro) =>{
+        console.log("DEU RUIMM!!");
         console.log(msgErro);
     });
