@@ -10,3 +10,38 @@ html, body, #root {
   background-color: #efefef;
   height: 100%;
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.button {
+  background-color:rgb(226, 217, 94) ;
+  border: none;
+  color: black;
+  padding: 15px 32x;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+  border-radius: 12px;
+  transition-duration: 0.5s;
+}
+
+.button:hover {
+  background-color: #333;
+  color: #efefef;
+}
