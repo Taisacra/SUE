@@ -1,9 +1,9 @@
-const { DataTypes} = require("Sequelize");
-const sequelize = require("./Database").default; 
+const { DataTypes, Sequelize } = require("sequelize");
+const connection = require("./Database");
 const Aluno = require("./aluno");
 const Turma = require("./turma");
 
-const TurmaAluno = sequelize.define('TurmaAluno',{
+const TurmaAluno = connection.define('TurmaAluno',{
         id_TurmaAluno: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -28,8 +28,6 @@ const TurmaAluno = sequelize.define('TurmaAluno',{
           },
     },
       {
-        sequelize,
-        modelName: "TurmaAluno",
         tableName: 'turmaaluno',
         timestamps: false,
       }

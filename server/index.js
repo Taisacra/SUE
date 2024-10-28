@@ -1,18 +1,13 @@
 const express = require('express');
 const bodyParser = require("body-parser");
+const path = require('path');
+const cors = require("cors");
+
 const app = express();
 const router = express.Router();
-const parth = require("path");
-const Sequelize = require("Sequelize");
-const cors = require("cors");
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cors());
-app.use(express.static(path.join(__dirname, "public")));
-port = 3000;
 
-const connection = require("./database/Database").default;
+//const Sequelize = require("sequelize");
+const connection = require("./database/Database");
 
 const Aluno = require("./routes/alunoRouts");
 const Usuario = require("./routes/usuarioRouts");
@@ -32,6 +27,13 @@ const UsuarioCoordenador = require("./database/usuarioCoordenador");//FAZER ROUT
 const UsuarioResponsavelFinanceiro = require("./database/usuarioRespFinanceiro");//FAZER ROUTS
 const UsuarioProfessor = require("./database/usuarioProfessor");//FAZER ROUTS 
 const Pagamento = require("./database/pagamento");//FAZER ROUTS
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cors());
+app.use(express.static(path.join(__dirname, "public")));
+port = 3000;
 
 
 /*Usuario.sincronizarUsuario;
@@ -62,7 +64,7 @@ app.use("/", Usuario);*/
 const start = async () =>{
     try {
         await connection.authenticate();
-        console.logo("Conexão estabelecida com sucesso.");
+        console.log("Conexão estabelecida com sucesso.");
         await connection.sync({force: false});
         console.log("Tabelas sicronizadas.");
     } catch (error) {
@@ -73,19 +75,9 @@ const start = async () =>{
 start();
 
 
-
 app.use("/", router);
 
 app.listen(port,()=>{
    console.log(`Aplicação rodando na porta ${port}`);
 })
 
-connection
-    .authenticate()
-    .then(()=>{
-        console.log("Conexão feita com o banco de dados!")
-    })
-    .catch((msgErro) =>{
-        console.log("DEU RUIMM!!");
-        console.log(msgErro);
-    });

@@ -3,7 +3,7 @@ import ModuloAcademico from './components/pages/ModuloAcademico';
 import ModuloAdministrativo from './components/pages/ModuloAdministrativo';
 import Home from './components/pages/Home'
 import Container from './components/layout/Container';
-import Axios from "axios";
+//import Axios from "axios";
 
 function App() {
   return (

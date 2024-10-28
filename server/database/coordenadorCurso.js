@@ -1,10 +1,10 @@
-const { DataTypes} = require("Sequelize");
-const sequelize = require("./Database").default; 
+const { DataTypes, Sequelize } = require("sequelize");
+const connection = require("./Database");
 const Curso = require("./curso");
 const UsuarioCoordenador = require("./usuarioCoordenador");
 
 
-const CoordenadorCurso = sequelize.define('CoordenadorCurso',{
+const CoordenadorCurso = connection.define('CoordenadorCurso',{
         id_curso: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -45,8 +45,6 @@ const CoordenadorCurso = sequelize.define('CoordenadorCurso',{
           
     },
       {
-        sequelize,
-        modelName: "CoordenadorCurso",
         tableName: "coordenadorcurso",
         timestamps: false,
       }

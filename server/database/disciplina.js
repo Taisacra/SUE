@@ -1,7 +1,7 @@
-const { DataTypes} = require("sequelize");
-const sequelize = require("./Database").default; 
+const { DataTypes, Sequelize } = require("sequelize");
+const connection = require("./Database");
 
-const Disciplina = sequelize.define('Disciplina',{
+const Disciplina = connection.define('Disciplina',{
         id_disciplina: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -22,8 +22,6 @@ const Disciplina = sequelize.define('Disciplina',{
           },
     },
       {
-        sequelize,
-        modelName: "Disciplina",
         tableName: 'disciplina',
         timestamps: false,
       }
