@@ -1,0 +1,62 @@
+  .menu {
+    position: fixed;
+    width: 200px;
+    height: 100%;
+    background-color: #17173b;
+    padding-top: 20px;
+  }
+  
+  .menu ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .menu ul li {
+    margin-bottom: 20px;
+  }
+  
+  .menu ul li a {
+    display: block;
+    color: white;
+    padding: 15px;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  
+  .menu ul li a:hover {
+    background-color: #f53b57;
+  }
+  
+  .menu ul li .submenu {
+    display: none; /* Escondido por padrão */
+    padding-left: 20px; /* Indenta para diferenciar do menu principal */
+    margin-top: 10px;
+  }
+  
+  .menu ul li .submenu li a {
+    font-size: 16px; /* Um pouco menor que o menu principal */
+    padding: 10px;
+  }
+  
+  .menu ul li:hover .submenu {
+    display: block; /* Exibe o submenu ao passar o mouse no item pai */
+  }
+  
+  .menu ul li a .icon {
+    margin-right: 10px;
+  }
+  
+  .content {
+    margin-left: 220px;
+    padding: 20px;
+  }
+  
+  .content h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .content p {
+    font-size: 18px;
+  }
+  
