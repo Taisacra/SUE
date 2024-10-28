@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
-port = 3600;
+port = 3000;
 
 const connection = require("./database/Database").default;
 
@@ -71,10 +71,6 @@ const start = async () =>{
 };
 
 start();
-
-
-
-
 
 
 

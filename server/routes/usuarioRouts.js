@@ -1,8 +1,6 @@
 const express = require('express');
-const Usuario = require('../database/Usuario');
+const Usuario = require('../database/usuario');
 const Router = express.Router();
-
-
 
 Router.get("/usuario", async (req,res)=>{
     try {
@@ -22,7 +20,7 @@ Router.get("/usuario", async (req,res)=>{
     }
 });
 
-Router.post("/editar_disciplina", async (req,res)=>{
+Router.post("/editar_usuario", async (req,res)=>{
     const{nome_usuario, cpf, telefone, data_nascimento, cep, rua, numero_casa, bairro, cidade, estado, complemento, } = req.body
     if(action === "incluir"){
         try {

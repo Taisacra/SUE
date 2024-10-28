@@ -1,71 +1,35 @@
+import { BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom'
+import ModuloAcademico from './components/pages/ModuloAcademico';
+import ModuloAdministrativo from './components/pages/ModuloAdministrativo';
+import Home from './components/pages/Home'
+import Container from './components/layout/Container';
+import Axios from "axios";
+
 function App() {
   return (
-    <nav className="sidebar">
-    <div className="App">
-      <img src="./img/logo_sue.jpeg" id="icone_sue" alt="Sue"></img>
-      <p className="sue_infos">
-        <span className="itemDescription">
-          SUE
-        </span>
-        <span className="itemDescription">
-          - Sistema Unificado Estudantil
-        </span>
-      </p>
-    </div>
-    <ul className="sideItens">
-      <li className="sideItem">
-        <a href="#">
-        <span className="itemDescricao">
-          Usuario
-        </span>
-        </a>  
-      </li>
-      <li className="sideItem">
-      <a href="#">
-        <span className="itemDescricao">
-          Aluno
-        </span>
-        </a>
-      </li>
-      <li className="sideItem">
-      <a href="#">
-        <span className="itemDescricao">
-          Professor
-        </span>
-        </a>
-      </li>
-      <li className="sideItem">
-      <a href="#">
-        <span className="itemDescricao">
-          Coordenador
-        </span>
-        </a>
-      </li>
-      <li className="sideItem">
-      <a href="#">
-        <span className="itemDescricao">
-          Curso
-        </span>
-        </a>
-      </li>
-      <li className="sideItem">
-      <a href="#">
-        <span className="itemDescricao">
-          Turma
-        </span>
-        </a>
-      </li>
-      <li className="sideItem">
-        <a href="#">
-          <span className="itemDescricao">
-          Pagamento
-          </span>
-        </a>
-      </li>
-    </ul>
+    <Router>
+     <div>
+      <nav>
+          <Link to="/">Home</Link>
+          <Link to="/moduloAcademico">Modulo Academico</Link>
+          <Link to="/moduloAdministrativo">Modulo Administrativo</Link>
+        </nav>
+     </div>
+     <Container className="min-height"> {/* Aplica a classe .min-height */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/moduloAcademico" element={<ModuloAcademico />} />
+          <Route path="/moduloAdministrativo" element={<ModuloAdministrativo />} />
+        </Routes>
+      </Container>
+      <footer>
+        <p>&copy; 2024 SUE- SISTEMA UNIFICADO ESTUDANTIL. Todos os diteiros reservados. </p>
+      </footer>
+    
+    </Router>
    
-    </nav>
-  );
+    
+   );
 }
 
 export default App;
