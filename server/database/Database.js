@@ -1,8 +1,9 @@
-const Sequelize = require("Sequelize");
+//const Sequelize = require("Sequelize");
+import Sequelize from "Sequelize";
 
 const connection = new Sequelize("sueprojeto", "root", "",{
     host: "localhost",
     dialect: "mysql",
 });
 
-module.exports = connection;  
+export default connection;  

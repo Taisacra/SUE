@@ -1,9 +1,18 @@
 const express = require('express');
+const bodyParser = require("body-parser");
 const app = express();
+const router = express.Router();
+const parth = require("path");
+const Sequelize = require("Sequelize");
+const cors = require("cors");
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-const port = 3600;
+app.use(cors());
+app.use(express.static(path.join(__dirname, "public")));
+port = 3600;
 
-const connection = require("./database/Database");
+const connection = require("./database/Database").default;
 
 const Aluno = require("./routes/alunoRouts");
 const Usuario = require("./routes/usuarioRouts");
@@ -25,7 +34,7 @@ const UsuarioProfessor = require("./database/usuarioProfessor");//FAZER ROUTS
 const Pagamento = require("./database/pagamento");//FAZER ROUTS
 
 
-Usuario.sincronizarUsuario;
+/*Usuario.sincronizarUsuario;
 Aluno.sincronizarAluno;
 Coordenador.sincronizarCoordenador;
 Curso.sincronizarCurso;
@@ -48,7 +57,20 @@ app.use("/", Aluno);
 app.use("/", Usuario);
 app.use("/", Coordenador);
 app.use("/", Disciplina);
-app.use("/", Usuario);
+app.use("/", Usuario);*/
+
+const start = async () =>{
+    try {
+        await connection.authenticate();
+        console.logo("Conexão estabelecida com sucesso.");
+        await connection.sync({force: false});
+        console.log("Tabelas sicronizadas.");
+    } catch (error) {
+        console.error("Não foi possivel conectar ao banco de dados: ", error)
+    }
+};
+
+start();
 
 
 
@@ -56,11 +78,10 @@ app.use("/", Usuario);
 
 
 
+app.use("/", router);
 
-
-
-app.listen(3600,()=>{
-   console.log("Rodando")
+app.listen(port,()=>{
+   console.log(`Aplicação rodando na porta ${port}`);
 })
 
 connection
