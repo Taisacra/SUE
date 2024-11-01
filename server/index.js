@@ -9,11 +9,11 @@ const router = express.Router();
 //const Sequelize = require("sequelize");
 const connection = require("./database/Database");
 
-const Aluno = require("./routes/alunoRouts");
-const Usuario = require("./routes/usuarioRouts");
-const Coordenador = require("./routes/coordenadorRouts");
+const alunoRouts = require("./routes/alunoRouts");
+const usuarioRouts = require("./routes/usuarioRouts");
+const coordenadorRouts = require("./routes/coordenadorRouts");
 const Curso = require('./database/curso');
-const Disciplina = require("./routes/disciplinaRouter");
+const disciplinaRouts = require("./routes/disciplinaRouter");
 const CoordenadorCurso = require("./database/coordenadorCurso"); //FAZER ROUTS
 const Professor = require("./database/professor");//FAZER ROUTS
 const ResponsavelFinanceiro = require("./database/responsavelFinanceiro");//FAZER ROUTS
@@ -54,12 +54,7 @@ UsuarioCoordenador.sicronizarUsuarioCoordenador;
 UsuarioResponsavelFinanceiro.sicronizarUsuarioResponsavelFinanceiro;
 UsuarioProfessor.sicronizarUsuarioProfessor;
 Pagamento.sincronizarPagamento;
-
-app.use("/", Aluno);
-app.use("/", Usuario);
-app.use("/", Coordenador);
-app.use("/", Disciplina);
-app.use("/", Usuario);*/
+*/
 
 const start = async () =>{
     try {
@@ -73,6 +68,13 @@ const start = async () =>{
 };
 
 start();
+
+
+app.use("/alunos", alunoRouts);
+app.use("/usuario", usuarioRouts );
+app.use("/coordenador", coordenadorRouts);
+app.use("/disciplina", disciplinaRouts);
+
 
 
 app.use("/", router);

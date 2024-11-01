@@ -1,14 +1,15 @@
 const express = require('express');
-const Usuario = require('../database/usuario');
 const Router = express.Router();
+const Usuario = require('../database/usuario');
 
-Router.get("/usuario", async (req,res)=>{
+
+Router.get("/", async (req,res)=>{
     try {
         const searchQuery = req.query.search || "";
         const usuarios = await Usuario.findAll({
             where: {
                 nome_usuario: {
-                    [Sequelize.Op.like]: `%${searchQuery}`,
+                    [Sequelize.Op.like]: `%${searchQuery}%`,
                 },
             },
         });
@@ -84,7 +85,7 @@ Router.post("/editar_usuario", async (req,res)=>{
 
 
 
-Router.delete('/usuario/excluir/:id', async(req,res)=>{
+Router.delete('/excluir/:id', async(req,res)=>{
     try {
         const id = req.params.id
         const usuario = await Usuario.findByPk(id)
