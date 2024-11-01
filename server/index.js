@@ -70,6 +70,8 @@ const start = async () =>{
 start();
 
 
+
+
 app.use("/alunos", alunoRouts);
 app.use("/usuario", usuarioRouts );
 app.use("/coordenador", coordenadorRouts);
