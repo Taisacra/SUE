@@ -1,4 +1,5 @@
 const express = require('express');
+const { DataTypes, Sequelize } = require("sequelize");
 const Router = express.Router();
 const Usuario = require('../database/usuario');
 
@@ -16,13 +17,13 @@ Router.get("/", async (req,res)=>{
         console.log("Dados na rota origem",usuarios);
         res.json({usuarios});
     } catch (error) {
-        console.log("Erro ao buscar alunos",error);
+        console.log("Erro ao buscar usuarios",error);
         res.status(500).send("Erro ao buscar usuarios");
     }
 });
 
 Router.post("/editar_usuario", async (req,res)=>{
-    const{nome_usuario, cpf, telefone, data_nascimento, cep, rua, numero_casa, bairro, cidade, estado, complemento, } = req.body
+    const{action, nome_usuario, cpf, telefone, data_nascimento, cep, rua, numero_casa, bairro, cidade, estado, complemento, } = req.body
     if(action === "incluir"){
         try {
             const usuarios = await Usuario.create({

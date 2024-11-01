@@ -72,10 +72,10 @@ start();
 
 
 
-app.use("/alunos", alunoRouts);
+//app.use("/alunos", alunoRouts);
 app.use("/usuario", usuarioRouts );
-app.use("/coordenador", coordenadorRouts);
-app.use("/disciplina", disciplinaRouts);
+//app.use("/coordenador", coordenadorRouts);
+//app.use("/disciplina", disciplinaRouts);
 
 
 
