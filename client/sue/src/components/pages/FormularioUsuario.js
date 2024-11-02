@@ -23,7 +23,7 @@ function FormularioUsuario({ usuarios, setUsuarios }) {
       };
     
       const handleIncluir = () => {
-        Axios.post("http://localhost:3000/editar_usuario", {
+        Axios.post("http://localhost:3000/usuario/editar_usuario", {
           nome_usuario: formData.nome_usuario,
           cpf: formData.cpf,
           telefone: formData.telefone,

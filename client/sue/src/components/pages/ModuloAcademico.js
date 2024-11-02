@@ -9,7 +9,7 @@ function ModuloAcademico() {
     useEffect(() => {
         const fetchUsuarios = async () => {
             try {
-                const response = await Axios.get('http://localhost:3000/usuarios');
+                const response = await Axios.get('http://localhost:3000/usuario');
                 console.log("Dados no App: ", response.data.usuarios);
                 setUsuarios(response.data.usuarios); 
             } catch (error) {
