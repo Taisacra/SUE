@@ -55,12 +55,13 @@ function FormularioUsuario({ usuarios, setUsuarios }) {
           });
         })
         .catch((error) => {
-          console.error("Erro ao incluir usuario:", error);
+         // console.error("Erro ao incluir usuario:", error);
         });
       };
     
       const handleAtualizar = () => {
-        Axios.post("http://localhost:3000/editar_usuario", {
+        Axios.post("http://localhost:3000/usuario/editar_usuario", {
+          //idUsuario: formData.idUsuario,
           nome_usuario: formData.nome_usuario,
           cpf: formData.cpf,
           telefone: formData.telefone,
@@ -79,7 +80,7 @@ function FormularioUsuario({ usuarios, setUsuarios }) {
             usuario.idUsuario === response.data.idUsuario ? response.data : usuario
           ));
           setFormData({
-            idUsuario: '',
+            //idUsuario: '',
             nome_usuario: '',
             cpf: '',
             telefone: '',
@@ -94,13 +95,14 @@ function FormularioUsuario({ usuarios, setUsuarios }) {
           });
         })
         .catch((error) => {
-          console.error("Erro ao atualizar usuario:", error);
+          console.error("Erro ao atualizar usuario:", error);//aponta aq
+          console.log(usuarios);
         });
       };
     
       const handleCarregar = (usuario) => {
         setFormData({
-          idUsuario: usuario.idUsuario,
+          //idUsuario: usuario.idUsuario,
           nome_usuario: usuario.nome_usuario,
           cpf: usuario.cpf,
           telefone: usuario.telefone,
@@ -116,7 +118,7 @@ function FormularioUsuario({ usuarios, setUsuarios }) {
       };
       
       const handleExcluir = (idUsuario) => {
-      Axios.post(`http://localhost:3000//usuario/excluir/${idUsuario}`)
+      Axios.post(`http://localhost:3000/usuario/excluir/${idUsuario}`)
         .then(() => {
           // Remove a disciplina excluída da lista de disciplinas no estado
           setUsuarios(usuarios.filter(usuario => usuario.idUsuario !== idUsuario));
@@ -130,7 +132,7 @@ function FormularioUsuario({ usuarios, setUsuarios }) {
         <div>
           <h2>Cadastro de Usuarios</h2>
           <form>
-            <div>
+           {/*  <div>
               <label>Matrícula:</label>
               <input
                 type="text"
@@ -138,7 +140,7 @@ function FormularioUsuario({ usuarios, setUsuarios }) {
                 value={formData.id_disciplina || ''} // Garantir que não seja undefined
                 onChange={handleChange}
               />
-            </div>
+            </div> */}
             <div>
               <label>Nome:</label>
               <input
@@ -245,7 +247,7 @@ function FormularioUsuario({ usuarios, setUsuarios }) {
           <table border="1" cellPadding="5" cellSpacing="0">
             <thead>
               <tr>
-                <th>Matrícula</th>
+                {/* <th>Matrícula</th> */}
                 <th>Nome</th>
                 <th>CPF</th>
                 <th>Telefone</th>
@@ -263,7 +265,7 @@ function FormularioUsuario({ usuarios, setUsuarios }) {
             <tbody>
               {usuarios.map((usuario, index) => (
                 <tr key={index}>
-                  <td>{usuario.idUsuario}</td>
+                  {/* <td>{usuario.idUsuario}</td> */}
                   <td>{usuario.nome_usuario}</td>
                   <td>{usuario.cep}</td>
                   <td>{usuario.telefone}</td>

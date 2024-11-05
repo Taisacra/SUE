@@ -1,29 +1,31 @@
+const { application } = require('express');
 const express = require('express');
-const { DataTypes, Sequelize } = require("sequelize");
+//const { DataTypes, Sequelize } = require("sequelize");
+//const Disciplina = require('../database/disciplina');
 const Router = express.Router();
 const Usuario = require('../database/usuario');
 
 
 Router.get("/", async (req,res)=>{
     try {
-        const searchQuery = req.query.search || "";
         const usuarios = await Usuario.findAll({
-            where: {
-                nome_usuario: {
-                    [Sequelize.Op.like]: `%${searchQuery}%`,
-                },
-            },
+           rae: true,
+           order: [["idUsuario", "ASC"]],
         });
-        console.log("Dados na rota origem",usuarios);
-        res.json({usuarios});
+        if(!usuarios || usuarios.length === 0){
+            return res
+            .status(400)
+            .json({message: "Nenhum usuario encontrado."});
+        }
+        res.status(200).json({ usuarios });
     } catch (error) {
-        console.log("Erro ao buscar usuarios",error);
-        res.status(500).send("Erro ao buscar usuarios");
+        console.error("Erro ao buscar usuarios: ",error);
+        res.status(500).json({error: "Erro ao buscar usuarios"});
     }
 });
 
 Router.post("/editar_usuario", async (req,res)=>{
-    const{action, nome_usuario, cpf, telefone, data_nascimento, cep, rua, numero_casa, bairro, cidade, estado, complemento, } = req.body
+    const{nome_usuario, cpf, telefone, data_nascimento, cep, rua, numero_casa, bairro, cidade, estado, complemento,action } = req.body
     if(action === "incluir"){
         try {
             const usuarios = await Usuario.create({
@@ -41,12 +43,13 @@ Router.post("/editar_usuario", async (req,res)=>{
             });
             res.status(201).json(usuarios); //Envia disciplina criada
         } catch (error) {
-            console.error("Erro ao inserir dados PARA USUARIO:", error);
-            res
-        .status(500)
-        .json({ error: "Erro ao inserir dados PARA USUARIO." });
+          console.error("Erro ao inserir dados PARA USUARIO:", error);
+          res
+             .status(500)
+             .json({ error: "Erro ao inserir dados PARA USUARIO." });
         }
     }
+
     if(action === "alterar"){       
         try {
             const {idUsuario} = req.body;
@@ -70,7 +73,9 @@ Router.post("/editar_usuario", async (req,res)=>{
             usuario.estado = estado;
             usuario.complemento = complemento;
             await usuario.save();
+            res.status(200).json(usuario); // envia usuario criado
         } catch (error) {
+            console.log(usuario);
             console.error(
                 `Erro ao ALTERAR dados PARA USUARIO: ${nome_usuario}`,
                 error
@@ -86,17 +91,20 @@ Router.post("/editar_usuario", async (req,res)=>{
 
 
 
-Router.delete('/excluir/:id', async(req,res)=>{
+Router.post('/excluir/:id', async(req,res)=>{
     try {
         const id = req.params.id
         const usuario = await Usuario.findByPk(id)
         if(!usuario){
-            res.status(401).json("ID não encontrado.")
+           return res.status(404).json({error: "ID não encontrado."})
         }
         await Usuario.destroy({where:{idUsuario:id}})
-        res.status(201)
+        res.redirect("/usuario");
     } catch (error) {
-        res.status(401)
+      console.error("Erro ao excluir dados:", error);
+      res
+        .status(500)
+        .json({ error: "Erro ao excluir dados da tabela de usuários." });
     }
 })
 

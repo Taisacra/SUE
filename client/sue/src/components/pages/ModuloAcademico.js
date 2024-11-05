@@ -19,6 +19,7 @@ function ModuloAcademico() {
 
         fetchUsuarios();  // Adicionado para chamar a função
     }, []); // Dependências vazias para chamar apenas uma vez na montagem
+    console.log(usuarios);
 
     return (
         <Container>
