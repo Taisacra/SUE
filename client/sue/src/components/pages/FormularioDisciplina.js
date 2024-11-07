@@ -3,7 +3,7 @@ import Axios from 'axios';
 
 function FormularioDisciplina({ disciplinas, setDisciplinas}){
     const [formData, setFormData] = useState({
-        id_disciplina: ' ',
+        id_disciplina: '9999',
         nome_disciplina: ' ',
         carga_horaria: ' ',
         descricao_disciplina: ' '
@@ -108,6 +108,8 @@ function FormularioDisciplina({ disciplinas, setDisciplinas}){
                 onChange={handleChange}
               />
             </div>
+            <button type="button" onClick={handleIncluir}>Incluir</button>
+            <button type="button" onClick={handleAtualizar}>Atualizar</button>
              </form>
              <h3>Relação de Disciplinas</h3>
           <table border="1" cellPadding="5" cellSpacing="0">
