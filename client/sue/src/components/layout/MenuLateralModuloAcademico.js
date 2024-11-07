@@ -1,7 +1,7 @@
-import styles from './MenuLateral.module.css';
+//import styles from './MenuLateralModuloAcademico.module.css';//importa css do menu do modulo academico
 import React, {useState} from 'react';
 
-function MenuLateral() {
+function MenuLateralModuloAcademico() {
    // Estado para controlar a visibilidade do submenu
   const[isSubmenuVisible, setIsSubmenuVisible] = useState(false);
    
@@ -10,10 +10,9 @@ function MenuLateral() {
     setIsSubmenuVisible(!isSubmenuVisible);
   }
 
-
   return (
    <div className="container">
-     <div className="menu">
+    <div className="menu">
      <ul>
         <li>
           <a href="#" onClick={toggleSublist}><i className="menuItem">&#128100;</i> Usuário</a>
@@ -31,7 +30,7 @@ function MenuLateral() {
         <li><a href="#"><i className="menu-item">&#127968;</i>Home</a></li>
         <li><a href="#"><i className="menu-item">&#10060;</i>Sair</a></li>
      </ul>
-     </div>
+    </div>
      <div className="content">
         <h1>Conteúdo Principal</h1>
         <p>Bem-vindo ao painel!</p>
@@ -41,4 +40,4 @@ function MenuLateral() {
   );
 }
 
-export default MenuLateral;
+export default MenuLateralModuloAcademico;
