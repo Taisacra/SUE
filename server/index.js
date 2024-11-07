@@ -11,9 +11,13 @@ const connection = require("./database/Database");
 
 const alunoRouts = require("./routes/alunoRouts");
 const usuarioRouts = require("./routes/usuarioRouts");
+const disciplinaRouts = require("./routes/disciplinaRouter");
+
+
+
+
 const coordenadorRouts = require("./routes/coordenadorRouts");
 const Curso = require('./database/curso');
-const disciplinaRouts = require("./routes/disciplinaRouter");
 const CoordenadorCurso = require("./database/coordenadorCurso"); //FAZER ROUTS
 const Professor = require("./database/professor");//FAZER ROUTS
 const ResponsavelFinanceiro = require("./database/responsavelFinanceiro");//FAZER ROUTS
@@ -36,25 +40,6 @@ app.use(express.static(path.join(__dirname, "public")));
 port = 3000;
 
 
-/*Usuario.sincronizarUsuario;
-Aluno.sincronizarAluno;
-Coordenador.sincronizarCoordenador;
-Curso.sincronizarCurso;
-Disciplina.sincronizarDisciplina;
-CoordenadorCurso.sincronizarCoordenadorCurso;
-Professor.sincronizarProfessor;
-ResponsavelFinanceiro.sicronizarResponsavelFinanceiro;
-Turma.sicronizarTurma;
-TurmaCurso.sincronizarTurmaCurso;
-TurmaAluno.sincronizarTurmaAluno;
-TurmaDisciplina.sicronizarTurmaDisciplina;
-ProfessorDisciplina.sincronizarProfessorDisciplina;
-UsuarioAluno.sincronizarUsuarioAluno;
-UsuarioCoordenador.sicronizarUsuarioCoordenador;
-UsuarioResponsavelFinanceiro.sicronizarUsuarioResponsavelFinanceiro;
-UsuarioProfessor.sicronizarUsuarioProfessor;
-Pagamento.sincronizarPagamento;
-*/
 
 const start = async () =>{
     try {
@@ -75,7 +60,7 @@ start();
 //app.use("/alunos", alunoRouts);
 app.use("/usuario", usuarioRouts );
 //app.use("/coordenador", coordenadorRouts);
-//app.use("/disciplina", disciplinaRouts);
+app.use("/disciplina", disciplinaRouts);
 
 
 

@@ -55,7 +55,7 @@ function FormularioUsuario({ usuarios, setUsuarios }) {
           });
         })
         .catch((error) => {
-         // console.error("Erro ao incluir usuario:", error);
+          console.error("Erro ao incluir usuario:", error);
         });
       };
     
